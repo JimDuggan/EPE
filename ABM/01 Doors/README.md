@@ -8,7 +8,7 @@ The theory underlying this is persuasive, as in marketing the [*word of mouth ef
 ## Model 1: Door imitiation using a proportional rule
 
 ### Overview
-Our first model (see the file AgentsPropRule.nlogo) has the following appearance when opened in NetLogo.
+Our [first model](https://github.com/JimDuggan/EPE/blob/main/ABM/01%20Doors/AgentsPropRule.nlogo)  has the following appearance when opened in NetLogo.
 
 <p align="center" width="100%">
     <img width="100%" src="images/01NetLogoScreen.png">
