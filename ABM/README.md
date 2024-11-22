@@ -10,7 +10,7 @@ What is agent-based modelling?
 [Wilensky and Rand (2015)](https://mitpress.mit.edu/9780262731898/an-introduction-to-agent-based-modeling/) provide a good definition.
 
 <p align="center">
-An agent is an autonomous computational individual or object with particular properties and actions. Agent-based modelling is a form of computational modelling whereby a phenonenon is modelled in terms of agents and their interactions.
+"An agent is an autonomous computational individual or object with particular properties and actions. Agent-based modelling is a form of computational modelling whereby a phenonenon is modelled in terms of agents and their interactions."
 </p>
 
 This page presents a number of different agent-based models that are implemented in NetLogo. These are:
