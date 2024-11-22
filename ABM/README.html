@@ -358,21 +358,38 @@ display: none;
 <h3>Overview</h3>
 <p>Here, we explore a number of agent based models using <a href="https://ccl.northwestern.edu/netlogo/">NetLogo</a>, the
 multi-agent programmable modelling environment.</p>
+<p>What is agent-based modelling?</p>
+<p><a href="https://mitpress.mit.edu/9780262731898/an-introduction-to-agent-based-modeling/">Wilensky
+and Rand (2015)</a> provide a good definition.</p>
+<p align="center">
+An agent is an autonomous computational individual or object with
+particular properties and actions. Agent-based modelling is a form of
+computational modelling whereby a phenonenon is modelled in terms of
+agents and their interactions.
+</p>
+<p>This page presents a number of different agent-based models that are
+implemented in NetLogo. These are:</p>
+<ol style="list-style-type: decimal">
+<li>The Door Colour Models, which models the spread of a fad/fashion in
+a neighbourhood, namely, the door colour of dwellings.</li>
+</ol>
 </div>
 <div id="the-door-colour-models" class="section level3">
-<h3>The Door Colour Models</h3>
+<h3>1. The Door Colour Models</h3>
 <p>The three <a href="https://github.com/JimDuggan/EPE/tree/main/ABM/01%20Doors">Door
 colour imitation models</a>, which:</p>
 <ul>
-<li><p>Model the idea of the spread of ideas, which is this case is the
+<li><p>Models the idea of the spread of ideas, which is this case is the
 decision to paint a door either gray (default) or blue (new
 colour).</p></li>
-<li><p>Represent dwellings as NetLogo agents known as <a href="https://ccl.northwestern.edu/netlogo/bind/primitive/patches.html">patches</a>.</p></li>
-<li><p>The dwellings are located on a grid, so each dwelling has four
+<li><p>Represents dwellings as NetLogo agents known as <a href="https://ccl.northwestern.edu/netlogo/bind/primitive/patches.html">patches</a>.</p></li>
+<li><p>Locates the dwellings on a grid, so each dwelling has four
 neighbours that influence it (north, south, east and west).</p></li>
-<li><p>We create a number of rules for each agent/patch which causes
-them to change colour. Effectively, it’s a form of mimicry, and if you
-neighbours</p></li>
+<li><p>Creates a number of rules for each agent/patch which causes them
+to change colour. Effectively, it’s a form of mimicry, and if your
+neighbours turn blue, you are more likely to also turn blue.</p></li>
+<li><p>Uses probability (e.g. somewhat like throwing a dice) to decide
+whether to change colour.</p></li>
 </ul>
 </div>
 </div>

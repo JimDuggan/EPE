@@ -5,6 +5,7 @@ Think of a neighbourhood where we want to model how door colours change, and we 
 
 The theory underlying this is persuasive, as in marketing the [*word of mouth effect*](https://en.wikipedia.org/wiki/Word-of-mouth_marketing) is often cited as reasons why product sales "take off". For example, we might say that a new product has "gone viral".
 
+
 ## Model 1: Door imitiation using a proportional rule
 
 ### Overview
