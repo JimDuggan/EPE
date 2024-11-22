@@ -13,10 +13,7 @@ What is agent-based modelling?
 "An agent is an autonomous computational individual or object with particular properties and actions. Agent-based modelling is a form of computational modelling whereby a phenonenon is modelled in terms of agents and their interactions."
 </p>
 
-This page presents a number of different agent-based models that are implemented in NetLogo. These are:
-
-1. The Door Colour Models, which models the spread of a fad/fashion in a neighbourhood, namely, the door colour of dwellings.
-
+This page presents a number of different agent-based models that are implemented in NetLogo.
 
 ### 1. The Door Colour Models
 
