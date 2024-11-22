@@ -5,6 +5,10 @@ Think of a neighbourhood where we want to model how door colours change, and we 
 
 The theory underlying this is persuasive, as in marketing the [*word of mouth effect*](https://en.wikipedia.org/wiki/Word-of-mouth_marketing) is often cited as reasons why product sales "take off". For example, we might say that a new product has "gone viral".
 
+Here are quick links to the NetLogo models:
+
+1. [Door imitation method 1](https://github.com/JimDuggan/EPE/blob/main/ABM/01%20Doors/AgentsPropRule.nlogo)
+2. [Door imitation method 2](https://github.com/JimDuggan/EPE/blob/main/ABM/01%20Doors/AgentsRFRule.nlogo)
 
 ## Model 1: Door imitiation using a proportional rule
 
