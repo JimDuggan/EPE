@@ -8,7 +8,7 @@ The theory underlying this is persuasive, as in marketing the [*word of mouth ef
 
 ## Model 1: Door imitiation using a proportional rule
 
-### Overview
+### 1.1 Overview
 Our [first model](https://github.com/JimDuggan/EPE/blob/main/ABM/01%20Doors/AgentsPropRule.nlogo)  has the following appearance when opened in NetLogo.
 
 <p align="center" width="100%">
@@ -40,7 +40,7 @@ The idea here is:
 
 You should see a red square appear in a random location.
 
-### Model Design
+### 1.2 Model Design
 
 In designing agent-based models, it is useful to sketch what kind of "states" you think the agent might have, and how these can be related to one another.
 
@@ -72,14 +72,14 @@ Here is the decision logic for the centre patch:
 
 * It then transforms this number to a proportion.
 
-* A rendom number between 0 and 1 is then generated. For example, let's say the number 0.25 is generated.
+* A random number between 0 and 1 is then generated. For example, let's say the number 0.25 is generated.
 
 * If this is less than the proportion, the patch will flip to blue.
 
 
 And this is the essence of our agent-based model. We could program this is many languages, but here we will use NetLogo, because it is specifically designed to help you develop agent-based models.
 
-### Coding in NetLogo
+### 1.3 Coding Model 1 in NetLogo
 To implement this in NetLogo, we have coded the following elements
 
 #### to go procedure
@@ -189,7 +189,7 @@ These are valuable commands:
 * [globals](https://ccl.northwestern.edu/netlogo/bind/primitive/globals.html) is a primitive that allows you to define global variables within your simulation. In this code, we have one global variable to store the total number of patches that are gray and blue.
 
 
-### Summary
+### 1.4 Summary
 We have now presented the model design and implementation. All that remains now is to run the model using NetLogo. A number of pointers for this:
 
 * Set the tick speed to slower so that you can see more clearly how the patches are changing colour
@@ -216,10 +216,120 @@ ask patch 0 0 [ask neighbors4 [show pxcor show pycor]]
 
 When you are finished with this exercise, try a new formulation of the flip logic in Model 2.
 
-## Model 2: Door imitiation using the Reed-Frost equation
+## 2. Model 2: Door imitiation using the Reed-Frost equation
+
+### 2.1 Overview
+Our [second model](https://github.com/JimDuggan/EPE/blob/main/ABM/01%20Doors/AgentsRFRule.nlogo) contains one significant change from the first model, and that relates to the transition change. Instead of using the proportion as a probability, we will use the [Reed-Frost](https://en.wikipedia.org/wiki/Reed–Frost_model) equations from epidemiology, which estimates the probability (risk) of changing as:
+
+$\lambda = 1 - (1 - p)^N$
+
+Where:
+
+* $\lambda$ is the risk of getting infected
+* $p$ is the probability of getting infected when encountering an infectious person
+* $N$ is the number of infected people.
+
+We can use this equation to model the probability of changing from gray to blue, as follows:
+
+$\lambda = 1 - (1 - p)^{NB}$
+
+Where:
+
+* $NB$ is the number of blue neighbours
+* $p$ is the probability of a gray neighbour changing to blue
+
+Note in the case where $NB$=0, the value of $\lambda$ is 0, and therefore there is no risk.
+
+### 2.2 Model Design
+
+The new **state transition chart** is shown below, and the only difference is that $\lambda$ is used instead of the neighbours proportion.
+
+<p align="center" width="100%">
+    <img width="75%" src="images/Transition02.png">
+</p>
+
+An updated "flip" scenario is shown below for the centre gray patch.
+
+<p align="center" width="100%">
+    <img width="60%" src="images/Scenario02.png">
+</p>
+
+Here is the decision logic for the centre patch:
+
+* It counts the number of blue doors in their immediate neighbourhood.
+
+* With a fixed value of $p$, it calculates $\lambda$ using the Reed-Frost equation.
+
+* A random number between 0 and 1 is then generated. For example, let's say the number 0.14 is generated.
+
+* As this is less that $\lambda$ the patch will flip to blue.
+
+The interface for this new model is shown below, and we can see a new parameter is added, **prob-fixed-flip**, which sets the value of $p$.
+
+<p align="center" width="100%">
+    <img width="100%" src="images/02NetLogoScreen.png">
+</p>
 
 
 
+We now present the changes to the original code to accomodate the Reed-Frost equation.
 
+### 2.3 Coding Model 2 in NetLogo
+To implement this in NetLogo, we have coded the following elements
 
+#### to go procedure
+There is no change to this procedure from the first model
+
+#### to-report gray-houses procedure
+There is no change to this procedure from the first model
+
+#### to flip-to-blue procedure
+Because we now use a new mechanism for the flip process, the **flip-to-blue** procedure is changed. Here is the new code.
+
+```
+to flip-to-blue
+  let number-blue count neighbors4 with [pcolor = blue]
+
+  let flip-prob 1 - (1 - prob-flip-fixed) ^ number-blue
+
+  let rn random-float 1
+
+  if rn < flip-prob
+      [
+        set pcolor blue
+        set rec-num-blue number-blue
+        set lambda flip-prob
+        set rand-no rn
+        set total-blue total-blue + 1
+        set total-gray total-gray - 1
+      ]
+end
+```
+
+Here are the main elements of this revised procedure, which really just codes the idea shown in the earlier diagram *Model 2 - a "flip" scenario*. 
+
+* We count the number of neighbours who are blue
+
+* We calculate lambda (flip-prob) based on the **prob-flip-fixed** and **number-blue**
+
+* After generating a random number between [0,1], if this is less than flip-prob we:
+  1. Set the patch colour to blue
+  2. Record **patch-own** variables for **number-blue**, **flip-prob**, **rn**
+  3. Update global values for **total-blue** and **total-gray**
+
+#### global and patch variables
+The following global and patch variables are declared.
+
+```
+patches-own [rec-num-blue lambda rand-no]
+globals [total-gray total-blue]
+```
+
+### 2.4 Summary
+
+Here are some steps you could take:
+
+* Experiment with the value of $P$ (*prob-flip-fixed*) to see how it impacts spread. For example, should setting it to zero result in no new blue patches? If so, why?
+
+* Think about the logic of Reed-Frost, can you see how it might have been formulated?
 
