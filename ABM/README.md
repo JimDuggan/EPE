@@ -29,3 +29,5 @@ The three [Door colour imitation models](https://github.com/JimDuggan/EPE/tree/m
 
 * Uses probability (e.g. somewhat like throwing a dice) to decide whether to change colour.
 
+
+### 2. Models of Infectious Diseases

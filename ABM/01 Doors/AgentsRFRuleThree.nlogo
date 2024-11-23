@@ -12,6 +12,7 @@ to setup
   ;; Set the counter global variables to initial values
   set total-gray count patches with [pcolor = gray]
   set total-blue count patches with [pcolor = blue]
+  set total-yellow 0
   ;; Reset the clock
   reset-ticks
 end
@@ -193,7 +194,7 @@ prob-flip-fixed
 prob-flip-fixed
 0
 1
-0.1
+0.3
 .1
 1
 NIL
@@ -208,7 +209,7 @@ prob-flip-yellow
 prob-flip-yellow
 0
 0.1
-0.04
+0.02
 0.01
 1
 NIL
