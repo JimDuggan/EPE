@@ -86,6 +86,32 @@ And this is the essence of our agent-based model. We could program this is many 
 ### 1.3 Coding Model 1 in NetLogo
 To implement this in NetLogo, we have coded the following elements
 
+#### setup procedure
+All models need a **to setup** procedure to set the initial conditions for the model. Here is the setup code for this model.
+
+```
+to setup
+  clear-all
+  ask patches [set pcolor gray]
+  ask one-of patches [set pcolor blue]
+  set total-gray count patches with [pcolor = gray]
+  set total-blue count patches with [pcolor = blue]
+  reset-ticks
+end
+```
+
+This is what happens when **to setup** is called:
+
+* All previous values of patches are cleared with the [clear-all](https://ccl.northwestern.edu/netlogo/docs/dict/clear-all.html) command.
+
+* We ask all patches to set their colour to gray
+
+* Using the command [one-of](https://ccl.northwestern.edu/netlogo/docs/dict/one-of.html), we select a random patch and set its colour to blue.
+
+* The global variables **total-gray** and **total-blue** are initialised.
+
+* The clock is reset using [reset-ticks](https://ccl.northwestern.edu/netlogo/docs/dict/reset-ticks.html#:~:text=reset%2Dticks4.0&text=Resets%20the%20tick%20counter%20to,end%20of%20a%20setup%20procedure)
+
 #### to go procedure
 All models need a **to go** [procedure](https://sesync-ci.github.io/netlogo-programming-lesson/index.html#:~:text=NetLogo%20Procedures,-Thus%20far%2C%20we&text=The%20way%20to%20make%20patches,new%20command%20that%20you%20define.), which will be repeatedly called by NetLogo. It captures the logic of the simulation, and the order in which instructions should be carried out. Order is important, for example, think of following a recipe when cooking: to get the desired output the correct sequence must be followed.
 
@@ -336,4 +362,79 @@ Here are some steps you could take:
 * Experiment with the value of $P$ (*prob-flip-fixed*) to see how it impacts spread. For example, should setting it to zero result in no new blue patches? If so, why?
 
 * Think about the logic of Reed-Frost, can you see how it might have been formulated?
+
+## 3. Model 3: Extending Model 2 with Yellow Doors
+
+### 3.1 Overview
+
+For our [third model](https://github.com/JimDuggan/EPE/blob/main/ABM/01%20Doors/AgentsRFRuleThree.nlogo) we now add a third possible colour - yellow. Gray doors can now also switch to yellow, but yellow cannot switch to blue. Therefore yellow status can be seen as a "stubborn" choice, where a patch "locks into" a door colour and will not change.
+
+The goal here is to observe the competition between blue and yellow for gray patches. The user interface for this model is shown below, and we will present the logic in more detail in the next sections.
+
+<p align="center" width="100%">
+    <img width="100%" src="images/03NetLogoScreen.png">
+</p>
+
+
+### 3.2 Model Design
+
+The new **state transition chart** is shown below. 
+
+<p align="center" width="100%">
+    <img width="75%" src="images/Transition03.png">
+</p>
+
+There are a number of points worth noting:
+
+* A door/patch can now be in three "states": gray, blue, and yellow.
+
+* The colours blue and yellow are "end states", once there, there is no escape for the agent/patch!
+
+* The probability of gray moving to blue is the same as before ($\lambda$)
+
+* The probability of gray moving to yellow is fixed, and determined by the user.
+
+A scenario for the transition from gray to yellow is shown in the following chart, assuming the random number generated is 0.006 (less that 0.01). When running the model, you can experiment with different values.
+
+<p align="center" width="100%">
+    <img width="60%" src="images/Scenario03.png">
+</p>
+
+### 3.3 Coding Model 3 in NetLogo
+To implement this in NetLogo, we have coded the following elements. 
+
+Because there are more changes in this model, we will describe all of the code.
+
+
+#### to go procedure
+```
+to go
+  if ticks >= 100 [stop]
+
+  ask gray-houses [
+    flip-to-blue
+  ]
+
+  ask gray-houses [
+    flip-to-yellow
+  ]
+
+  update-plots
+  tick
+end
+```
+
+The main change here is that we now ask gray houses to **flip-to-yellow**, and this is (arbitrarily) performed after we ask house to **flip-to-blue**. Does the order make a difference? Possibly, and that is something you could explore through experimentation.
+
+
+#### to-report gray-houses procedure
+
+
+#### to flip-to-blue procedure
+
+#### global and patch variables
+
+
+### 3.4 Summary
+
 
