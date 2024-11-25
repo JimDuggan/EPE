@@ -5,13 +5,13 @@ Think of a neighbourhood where we want to model how door colours change, and we 
 
 The theory underlying this is persuasive, as in marketing the [*word of mouth effect*](https://en.wikipedia.org/wiki/Word-of-mouth_marketing) is often cited as reasons why product sales "take off". For example, we might say that a new product has "gone viral".
 
-Here are quick links to the NetLogo models:
+Here are the three models.
 
-1. [Door imitation model 1](https://github.com/JimDuggan/EPE/blob/main/ABM/01%20Doors/AgentsPropRule.nlogo)
-2. [Door imitation model 2](https://github.com/JimDuggan/EPE/blob/main/ABM/01%20Doors/AgentsRFRule.nlogo)
-3. [Door imitation model 3](https://github.com/JimDuggan/EPE/blob/main/ABM/01%20Doors/AgentsRFRuleThree.nlogo)
+1. [Door imitation model 1: using proportions to change colour](#door-imitiation-using-a-proportional-rule)
+2. [Door imitation model 2: using Reed-Frost to change colour](#door-imitiation-using-the-reed-frost-equation)
+3. [Door imitation model 3: adding a third colour to the model](#adding-a-yellow-door-option-to-the-model)
 
-## Model 1: Door imitiation using a proportional rule
+[Go to Agent-Based Modelling main page](https://github.com/JimDuggan/EPE/tree/main/ABM)
 
 ### 1.1 Overview
 Our [first model](https://github.com/JimDuggan/EPE/blob/main/ABM/01%20Doors/AgentsPropRule.nlogo)  has the following appearance when opened in NetLogo.
@@ -90,7 +90,7 @@ We could program this is many languages, but here we will use NetLogo, because i
 ### 1.3 Coding Model 1 in NetLogo
 To implement this in NetLogo, we have coded the following elements
 
-#### setup procedure
+#### 1.3.1 setup procedure
 All models need a **to setup** procedure to set the initial conditions for the model. Here is the setup code for this model.
 
 ```
@@ -116,7 +116,7 @@ This is what happens when **to setup** is called:
 
 * The clock is reset using [reset-ticks](https://ccl.northwestern.edu/netlogo/docs/dict/reset-ticks.html#:~:text=reset%2Dticks4.0&text=Resets%20the%20tick%20counter%20to,end%20of%20a%20setup%20procedure)
 
-#### to go procedure
+#### 1.3.2 to go procedure
 All NetLogo models need a **to go** [procedure](https://sesync-ci.github.io/netlogo-programming-lesson/index.html#:~:text=NetLogo%20Procedures,-Thus%20far%2C%20we&text=The%20way%20to%20make%20patches,new%20command%20that%20you%20define.), which will be repeatedly called by NetLogo. It captures the logic of the simulation, and the order in which instructions should be carried out. Order is important, for example, think of following a recipe when cooking: to get the desired output the correct sequence must be followed.
 
 For example, if you're cooking a pizza, you place the sauce on the base before adding the toppings. It's the same idea in coding. 
@@ -144,7 +144,7 @@ So, this is what is going on:
 
 * The command **tick** will update the clock, and then the procedure ends.
 
-#### to-report gray-houses procedure
+#### 1.3.3 to-report gray-houses procedure
 Now we move on to the procedure **to-report gray-houses**, which has the following code. Note that a reporter is designed to return some information, and is very useful to perform what sometimes known as a  *divide and conquer* approach on your NetLogo model. The *divide and conquer* idea means that we try to break problems down into smaller units (e.g. reporters and procedures). This makes the code easier to understand and maintain.
 
 ```
@@ -174,7 +174,7 @@ The keyword [**ask**](https://ccl.northwestern.edu/netlogo/docs/dict/ask.html) i
 We now describe the procedure **flip-to-blue**, which implements our switching logic.
 
 
-#### to flip-to-blue procedure
+#### 1.3.4 to flip-to-blue procedure
 This procedure is called for every agent whose patch colour is gray. Here is the code.
 
 ```
@@ -209,7 +209,7 @@ Here are the main elements of this procedure, which really just codes the idea s
 
 That concludes the main coding logic, all that remains now it to define the global and patch variables. Note that in the code, these are usually defined at the top of the code file.
 
-#### global and patch variables
+#### 1.3.5 global and patch variables
 As the simulation progresses, we want to communicate and record information, and we can do this using **global variables** and **patch variables**.
 
 Here is the code we use.
@@ -252,7 +252,9 @@ ask patch 0 0 [ask neighbors4 [show pxcor show pycor]]
 
 When you are finished with this exercise, try a new formulation of the flip logic in Model 2.
 
-## 2. Model 2: Door imitiation using the Reed-Frost equation
+[Back to top](#the-door-colour-imitation-models)
+
+## 2. Door imitiation using the Reed-Frost equation
 
 ### 2.1 Overview
 Our [second model](https://github.com/JimDuggan/EPE/blob/main/ABM/01%20Doors/AgentsRFRule.nlogo) contains one significant change from the first model, and that relates to the transition change. Instead of using the proportion as a probability, we will use the relevant [Reed-Frost](https://en.wikipedia.org/wiki/Reed–Frost_model) equation from epidemiology, which estimates the probability (risk) of changing as:
@@ -314,16 +316,16 @@ We now present the changes to the original code to accomodate the Reed-Frost equ
 ### 2.3 Coding Model 2 in NetLogo
 To implement this in NetLogo, we have coded the following elements
 
-#### setup procedure
+#### 2.3.1 setup procedure
 There is no change to this procedure from the first model
 
-#### to go procedure
+#### 2.3.2 to go procedure
 There is no change to this procedure from the first model
 
-#### to-report gray-houses procedure
+#### 2.3.3 to-report gray-houses procedure
 There is no change to this procedure from the first model
 
-#### to flip-to-blue procedure
+#### 2.3.4 to flip-to-blue procedure
 Because we now use a new mechanism for the flip process, the **flip-to-blue** procedure is changed. Here is the new code.
 
 ```
@@ -357,7 +359,7 @@ Here are the main elements of this revised procedure, which really just codes th
   2. Record **patch-own** variables for **number-blue**, **flip-prob**, **rn**
   3. Update global values for **total-blue** and **total-gray**
 
-#### global and patch variables
+#### 2.3.5 global and patch variables
 The following global and patch variables are declared.
 
 ```
@@ -373,7 +375,9 @@ Here are some steps you could take:
 
 * **Think about the logic of Reed-Frost, can you see how it might have been formulated?** Hint: if you have one blue neighbour then the probability of not switching is $1-p$.
 
-## 3. Model 3: Extending Model 2 with Yellow Doors
+[Back to top](#the-door-colour-imitation-models)
+
+## 3. Adding a yellow door option to the model
 
 ### 3.1 Overview
 
@@ -384,6 +388,7 @@ The goal here is to observe the competition between blue and yellow for gray pat
 <p align="center" width="100%">
     <img width="100%" src="images/03NetLogoScreen.png">
 </p>
+
 
 
 ### 3.2 Model Design
@@ -415,7 +420,7 @@ To implement this in NetLogo, we have coded the following elements.
 
 Because there are more changes in this model, we will describe all of the code.
 
-#### setup procedure
+#### 3.3.1 setup procedure
 This is the code for the setup procedure.
 
 ```
@@ -432,7 +437,7 @@ end
 
 This is similar to the previous code: all patches are set to gray, and then we randomly select one of these to be blue. The global counters are also initialised.
 
-#### to go procedure
+#### 3.3.2 to go procedure
 We now describe the **main loop** of the model.
 ```
 to go
@@ -458,7 +463,7 @@ The main change here is that we now ask gray houses to **flip-to-yellow**, and t
 Possibly, and that is something you could explore through experimentation.
 
 
-#### to-report gray-houses procedure
+#### 3.3.3 to-report gray-houses procedure
 This reporter (again a reporter is a special procedure that returns information) returns a list of all gray coloured patches/agents.
 
 ```
@@ -468,7 +473,7 @@ end
 ```
 
 
-#### to flip-to-blue procedure
+#### 3.3.4 to flip-to-blue procedure
 This code is the same as Model 2, it uses our Reed-Frost equation to determine the probability of changing from gray to blue.
 
 ```
@@ -491,7 +496,7 @@ to flip-to-blue
 end
 ```
 
-#### to flip-to-yellow procedure
+#### 3.3.5 to flip-to-yellow procedure
 This is a new procedure, where each patch is asked to flip-to-yellow. Depending on the random number generated, this may happen.
 
 ```
@@ -521,7 +526,7 @@ Here is the procedure's logic:
   2. The counters for yellow (increment) and gray (decrement) are changed
   3. The patch variables are recorded (**rand-no-yellow** and **prob-flip-to-yellow**)
 
-#### global and patch variables
+#### 3.3.6 global and patch variables
 Here are the global and patch variables defined for the model.
 
 ```
@@ -574,6 +579,6 @@ You have now explore three related agent-based models. There are two aspects to 
   * Then (if needed) we calculate the probabilities. The ones that were not fixed were the transition from gray to blue, and we used two methods for this (proportion of neighbours blue, and Reed-Frost)
   * Once the probability is know, the approach for deciding on a transition is similar. We "flip a coin" to get a number between 0 and 1, and then flip state if that random number is less than the probability.
   
-
+[Back to top](#the-door-colour-imitation-models)
 
 
